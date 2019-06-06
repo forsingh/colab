@@ -1,0 +1,52 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled0.ipynb",
+      "version": "0.3.2",
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/forsingh/colab/blob/master/Run%20Tensorboard\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "5Wy3Np78HSZ6",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "# Run Tensorboard \n",
+        "\n",
+        "!wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip\n",
+        "!unzip ngrok-stable-linux-amd64.zip\n",
+        "LOG_DIR = './log'\n",
+        "get_ipython().system_raw(\n",
+        "    'tensorboard --logdir {} --host 0.0.0.0 --port 6006 &'\n",
+        "    .format(LOG_DIR)\n",
+        ")\n",
+        "get_ipython().system_raw('./ngrok http 6006 &')\n",
+        "! curl -s http://localhost:4040/api/tunnels | python3 -c \\\n",
+        "    \"import sys, json; print(json.load(sys.stdin)['tunnels'][0]['public_url'])\""
+      ],
+      "execution_count": 0,
+      "outputs": []
+    }
+  ]
+}
